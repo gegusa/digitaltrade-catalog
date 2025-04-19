@@ -2,5 +2,5 @@
 
 public class CreateProductResponse
 {
-    
+    public long ProductId { get; set; }
 }

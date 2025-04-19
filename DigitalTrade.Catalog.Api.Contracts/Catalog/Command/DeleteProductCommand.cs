@@ -2,5 +2,5 @@
 
 public class DeleteProductCommand
 {
-    
+    public long ProductId { get; set; }
 }

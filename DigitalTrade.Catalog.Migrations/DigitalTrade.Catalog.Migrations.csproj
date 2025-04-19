@@ -15,9 +15,13 @@
 
     <ItemGroup>
       <None Remove="Scripts\Initial\20250419173630_create_table_products.sql" />
-      <Resource Include="Scripts\Initial\20250419173630_create_table_products.sql">
+      <Content Include="Scripts\Initial\20250419173630_create_table_products.sql">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
+      </Content>
+      <None Remove="Scripts\Migrations\20250419174555_add_test_data.sql" />
+      <Content Include="Scripts\Migrations\20250419174555_add_test_data.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

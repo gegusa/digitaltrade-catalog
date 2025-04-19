@@ -2,5 +2,5 @@
 
 public class UpdateProductResponse
 {
-    
+    public bool IsSuccess { get; set; }
 }

@@ -1,12 +1,10 @@
-using DigitalTrade.Catalog.Entities;
 using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
-using LinqToDB.Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DigitalTrade.Clients.Entities;
+namespace DigitalTrade.Catalog.Entities;
 
 /// <summary>
 /// Расширения коллекции сервисов.

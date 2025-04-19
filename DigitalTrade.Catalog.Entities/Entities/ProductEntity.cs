@@ -9,7 +9,7 @@ public class ProductEntity
     
     [Column("name"), NotNull] public string Name { get; set; } = null!;
 
-    [Column("category"), NotNull] public List<string> Category { get; set; } = [];
+    [Column("category"), NotNull] public string Category { get; set; } = null!;
 
     [Column("description"), NotNull] public string Description { get; set; } = null!;
 
