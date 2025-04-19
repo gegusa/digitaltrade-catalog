@@ -13,4 +13,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DigitalTrade.Catalog.Api.Contracts\DigitalTrade.Catalog.Api.Contracts.csproj" />
+      <ProjectReference Include="..\DigitalTrade.Catalog.AppServices\DigitalTrade.Catalog.AppServices.csproj" />
+    </ItemGroup>
+
 </Project>
