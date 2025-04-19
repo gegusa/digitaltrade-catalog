@@ -14,7 +14,7 @@ public interface ICatalogHandler
 
     public Task<GetProductByIdResponse> GetProductById(GetProductByIdRequest request, CancellationToken ct);
 
-    public Task<GetProductByCategoryResponse> GetProductByCategory(GetProductByCategoryRequest request, CancellationToken ct);
+    public Task<GetProductsByCategoryResponse> GetProductsByCategory(GetProductsByCategoryRequest request, CancellationToken ct);
 
     public Task<GetProductsResponse> GetProducts(GetProductsRequest request, CancellationToken ct);
 }

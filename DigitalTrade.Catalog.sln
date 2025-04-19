@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{BF
 		Dockerfile = Dockerfile
 		.gitignore = .gitignore
 		Directory.Packages.props = Directory.Packages.props
+		Dockerfile-migration = Dockerfile-migration
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalTrade.Catalog.AppServices", "DigitalTrade.Catalog.AppServices\DigitalTrade.Catalog.AppServices.csproj", "{7F17AD3A-6596-4E8F-A292-1E1996A1E311}"

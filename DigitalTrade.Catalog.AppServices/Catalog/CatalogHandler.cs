@@ -26,7 +26,7 @@ public class CatalogHandler : ICatalogHandler
         throw new NotImplementedException();
     }
 
-    public Task<GetProductByCategoryResponse> GetProductByCategory(GetProductByCategoryRequest request, CancellationToken ct)
+    public Task<GetProductsByCategoryResponse> GetProductsByCategory(GetProductsByCategoryRequest request, CancellationToken ct)
     {
         throw new NotImplementedException();
     }

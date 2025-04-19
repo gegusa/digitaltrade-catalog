@@ -1,5 +1,7 @@
 ﻿using DigitalTrade.Catalog.Api.Contracts.Catalog;
 using DigitalTrade.Catalog.Api.Contracts.Catalog.Command;
+using DigitalTrade.Catalog.Api.Contracts.Catalog.Request;
+using DigitalTrade.Catalog.Api.Contracts.Catalog.Response;
 using DigitalTrade.Catalog.AppServices.Catalog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,26 +22,49 @@ public class CatalogController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost(CatalogWebRoutes.CreateProduct)]
-    public void CreateClient([FromBody] CreateProductCommand command)
+    public Task<CreateProductResponse> CreateProduct([FromBody] CreateProductCommand command, CancellationToken ct)
     {
-        _mediator.Send(command);
-
-        Ok();
+        return _handler.CreateProduct(command, ct);
     }
 
     [AllowAnonymous]
-    [HttpPost(CatalogWebRoutes.Authenticate)]
-    public async Task<IActionResult> AuthenticateClient([FromBody] AuthenticateClientRequest request)
+    [HttpPost(CatalogWebRoutes.UpdateProduct)]
+    public Task<UpdateProductResponse> UpdateProduct([FromBody] UpdateProductCommand command, CancellationToken ct)
     {
-        var response = await _mediator.Send(new AuthenticateClientCommand
+        return _handler.UpdateProduct(command, ct);
+    }
+
+    [AllowAnonymous]
+    [HttpPost(CatalogWebRoutes.DeleteProduct)]
+    public Task<DeleteProductResponse> DeleteProduct([FromBody] DeleteProductCommand command, CancellationToken ct)
+    {
+        return _handler.DeleteProduct(command, ct);
+    }
+
+    [AllowAnonymous]
+    [HttpGet(CatalogWebRoutes.GetProducts)]
+    public Task<GetProductsResponse> GetProducts([FromQuery] GetProductsRequest request, CancellationToken ct)
+    {
+        return _handler.GetProducts(request, ct);
+    }
+
+    [AllowAnonymous]
+    [HttpGet(CatalogWebRoutes.GetProductById)]
+    public Task<GetProductByIdResponse> GetProductById([FromRoute] long id, CancellationToken ct)
+    {
+        return _handler.GetProductById(new GetProductByIdRequest
         {
-            Email = request.Email,
-            Password = request.Password,
-            IpAddress = IpAddress()!
-        });
+            Id = id
+        }, ct);
+    }
 
-        SetTokenCookie(response.RefreshToken);
-
-        return Ok(response);
+    [AllowAnonymous]
+    [HttpGet(CatalogWebRoutes.GetProductsByCategory)]
+    public Task<GetProductsByCategoryResponse> GetProductsByCategory([FromRoute] string category, CancellationToken ct)
+    {
+        return _handler.GetProductsByCategory(new GetProductsByCategoryRequest
+        {
+            Category = category
+        }, ct);
     }
 }
