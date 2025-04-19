@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalTrade.Catalog.Host", "DigitalTrade.Catalog.Host\DigitalTrade.Catalog.Host.csproj", "{B0590CD8-DAF1-4C05-8B95-42FBE1C056D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{BF65C262-E2D4-4026-817D-3ED66914E22C}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0590CD8-DAF1-4C05-8B95-42FBE1C056D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0590CD8-DAF1-4C05-8B95-42FBE1C056D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0590CD8-DAF1-4C05-8B95-42FBE1C056D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0590CD8-DAF1-4C05-8B95-42FBE1C056D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
