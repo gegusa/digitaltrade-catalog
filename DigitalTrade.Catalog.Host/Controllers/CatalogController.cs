@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalTrade.Catalog.Host.Controllers;
 
-[Authorize]
 [ApiController]
 [Route(CatalogWebRoutes.BasePath)]
 public class CatalogController : ControllerBase
@@ -20,35 +19,30 @@ public class CatalogController : ControllerBase
         _handler = handler;
     }
 
-    [AllowAnonymous]
     [HttpPost(CatalogWebRoutes.CreateProduct)]
     public Task<CreateProductResponse> CreateProduct([FromBody] CreateProductCommand command, CancellationToken ct)
     {
         return _handler.CreateProduct(command, ct);
     }
 
-    [AllowAnonymous]
     [HttpPost(CatalogWebRoutes.UpdateProduct)]
     public Task<UpdateProductResponse> UpdateProduct([FromBody] UpdateProductCommand command, CancellationToken ct)
     {
         return _handler.UpdateProduct(command, ct);
     }
 
-    [AllowAnonymous]
     [HttpPost(CatalogWebRoutes.DeleteProduct)]
     public Task<DeleteProductResponse> DeleteProduct([FromBody] DeleteProductCommand command, CancellationToken ct)
     {
         return _handler.DeleteProduct(command, ct);
     }
 
-    [AllowAnonymous]
     [HttpGet(CatalogWebRoutes.GetProducts)]
     public Task<GetProductsResponse> GetProducts([FromQuery] GetProductsRequest request, CancellationToken ct)
     {
         return _handler.GetProducts(request, ct);
     }
 
-    [AllowAnonymous]
     [HttpGet(CatalogWebRoutes.GetProductById)]
     public Task<GetProductByIdResponse> GetProductById([FromRoute] long id, CancellationToken ct)
     {
