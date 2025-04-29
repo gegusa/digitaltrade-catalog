@@ -1,10 +1,13 @@
 ﻿using DigitalTrade.Catalog.Api.Contracts.Catalog.Command;
+using DigitalTrade.Catalog.Api.Contracts.Catalog.Kafka;
+using DigitalTrade.Catalog.Api.Contracts.Catalog.Kafka.Events;
 using DigitalTrade.Catalog.Api.Contracts.Catalog.Request;
 using DigitalTrade.Catalog.Api.Contracts.Catalog.Response;
 using DigitalTrade.Catalog.AppServices.Exceptions;
 using DigitalTrade.Catalog.AppServices.Mappers;
 using DigitalTrade.Catalog.Entities;
 using DigitalTrade.Catalog.Entities.Entities;
+using KafkaFlow.Producers;
 using LinqToDB;
 
 namespace DigitalTrade.Catalog.AppServices.Catalog;
@@ -12,10 +15,12 @@ namespace DigitalTrade.Catalog.AppServices.Catalog;
 internal class CatalogHandler : ICatalogHandler
 {
     private readonly CatalogDataConnection _db;
+    private readonly IProducerAccessor _producers;
 
-    public CatalogHandler(CatalogDataConnection db)
+    public CatalogHandler(CatalogDataConnection db, IProducerAccessor producerAccessor)
     {
         _db = db;
+        _producers = producerAccessor;
     }
 
     public async Task<CreateProductResponse> CreateProduct(CreateProductCommand command, CancellationToken ct)
@@ -42,13 +47,20 @@ internal class CatalogHandler : ICatalogHandler
         if (entity is null)
             throw new EntityNotFoundException($"Product with id={command.Id} not found");
 
-        entity.Name = command.Name;
-        entity.Category = command.Category;
-        entity.Description = command.Description;
-        entity.Price = command.Price;
-        entity.ImageFile = command.ImageFile;
+        if (command.Name is not null)
+            entity.Name = command.Name;
+        if (command.Category is not null)
+            entity.Category = command.Category;
+        if (command.Description is not null)
+            entity.Description = command.Description;
+        if (command.Price is not null)
+            entity.Price = command.Price.Value;
+        if (command.ImageFile is not null)
+            entity.ImageFile = command.ImageFile;
 
         await _db.UpdateAsync(entity, token: ct);
+
+        await _producers[Topics.CatalogChangedProducerName].ProduceAsync(entity.ToProductUpdatedEvent(), ct);
 
         return new UpdateProductResponse
         {
@@ -64,6 +76,11 @@ internal class CatalogHandler : ICatalogHandler
             throw new EntityNotFoundException($"Product with id={command.ProductId} not found");
 
         await _db.DeleteAsync(entity, token: ct);
+
+        await _producers[Topics.CatalogChangedProducerName].ProduceAsync(new ProductDeletedEvent
+        {
+            ProductId = command.ProductId
+        }, ct);
 
         return new DeleteProductResponse
         {
@@ -84,7 +101,8 @@ internal class CatalogHandler : ICatalogHandler
         };
     }
 
-    public async Task<GetProductsByCategoryResponse> GetProductsByCategory(GetProductsByCategoryRequest request, CancellationToken ct)
+    public async Task<GetProductsByCategoryResponse> GetProductsByCategory(GetProductsByCategoryRequest request,
+        CancellationToken ct)
     {
         var entities = await _db.Products
             .Where(e =>

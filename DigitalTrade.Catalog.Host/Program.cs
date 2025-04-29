@@ -1,5 +1,6 @@
 using DigitalTrade.Catalog.AppServices;
 using DigitalTrade.Catalog.Entities;
+using DigitalTrade.Catalog.Host.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddEntities(configuration);
 builder.Services.AddAppServices();
+builder.Services.AddKafkaFlow(configuration);
 
 builder.Services.AddCors();
 builder.Services.AddHttpContextAccessor();

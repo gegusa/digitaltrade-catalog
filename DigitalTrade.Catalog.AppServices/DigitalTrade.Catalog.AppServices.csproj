@@ -11,4 +11,8 @@
       <ProjectReference Include="..\DigitalTrade.Catalog.Entities\DigitalTrade.Catalog.Entities.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="KafkaFlow" />
+    </ItemGroup>
+
 </Project>
