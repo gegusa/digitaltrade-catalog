@@ -15,11 +15,6 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
         <PackageReference Include="Scalar.AspNetCore" />
     </ItemGroup>
-    <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\DigitalTrade.Catalog.Api.Contracts\DigitalTrade.Catalog.Api.Contracts.csproj" />
