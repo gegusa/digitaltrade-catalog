@@ -15,6 +15,10 @@ builder.Services.AddEntities(configuration);
 builder.Services.AddAppServices();
 builder.Services.AddKafkaFlow(configuration);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Configure(builder.Configuration.GetSection("Kestrel"));
+});
 builder.Services.AddCors();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHealthChecks();
