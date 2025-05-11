@@ -7,4 +7,4 @@ RUN dotnet restore ./DigitalTrade.Catalog.Host/DigitalTrade.Catalog.Host.csproj 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /src
 COPY --from=build-env /src/out .
-ENTRYPOINT ["dotnet", "DigitalTrade.Catalog.dll"]
+ENTRYPOINT ["dotnet", "DigitalTrade.Catalog.Host.dll"]
