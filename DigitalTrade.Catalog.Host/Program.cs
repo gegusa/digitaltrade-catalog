@@ -31,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+app.Map("/", () => "Hello from Catalog!");
 app.MapControllers();
 var kafkaBus = app.Services.CreateKafkaBus();
 await kafkaBus.StartAsync();
