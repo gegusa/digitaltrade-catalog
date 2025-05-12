@@ -60,7 +60,11 @@ internal class CatalogHandler : ICatalogHandler
 
         await _db.UpdateAsync(entity, token: ct);
 
-        await _producers[Topics.CatalogChangedProducerName].ProduceAsync(entity.ToProductUpdatedEvent(), ct);
+        var productUpdatedEvent = entity.ToProductUpdatedEvent();
+        await _producers[Topics.CatalogChangedProducerName].ProduceAsync(
+            Topics.CatalogChangedName,
+            productUpdatedEvent.ProductId,
+            productUpdatedEvent);
 
         return new UpdateProductResponse
         {
@@ -77,10 +81,13 @@ internal class CatalogHandler : ICatalogHandler
 
         await _db.DeleteAsync(entity, token: ct);
 
-        await _producers[Topics.CatalogChangedProducerName].ProduceAsync(new ProductDeletedEvent
-        {
-            ProductId = command.ProductId
-        }, ct);
+        await _producers[Topics.CatalogChangedProducerName].ProduceAsync(
+            Topics.CatalogChangedName,
+            command.ProductId.ToString(),
+            new ProductDeletedEvent
+            {
+                ProductId = command.ProductId
+            });
 
         return new DeleteProductResponse
         {
