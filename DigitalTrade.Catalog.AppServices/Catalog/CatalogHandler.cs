@@ -63,7 +63,7 @@ internal class CatalogHandler : ICatalogHandler
         var productUpdatedEvent = entity.ToProductUpdatedEvent();
         await _producers[Topics.CatalogChangedProducerName].ProduceAsync(
             Topics.CatalogChangedName,
-            productUpdatedEvent.ProductId,
+            productUpdatedEvent.ProductId.ToString(),
             productUpdatedEvent);
 
         return new UpdateProductResponse
